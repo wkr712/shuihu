@@ -1,0 +1,33 @@
+# Godot 4 generated files
+.import/
+*.import
+.godot/
+export_presets.cfg
+
+# Godot engine
+Godot/
+*.zip
+
+# Build output
+export/
+builds/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Mono/C# artifacts
+.mono/
+obj/
+bin/
+
+# Encryption
+*.encryption.key

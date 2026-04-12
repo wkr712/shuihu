@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect width="128" height="128" fill="#1a1a2e"/>
+  <text x="64" y="72" font-size="48" font-family="serif" fill="#e63946" text-anchor="middle" dominant-baseline="middle">水</text>
+  <text x="64" y="108" font-size="16" font-family="serif" fill="#a8dadc" text-anchor="middle">ROGUELIKE</text>
+</svg>
