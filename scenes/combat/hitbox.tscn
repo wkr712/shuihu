@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c_hitbox001"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(24, 20)
+
+[node name="Hitbox" type="Area2D"]
+collision_mask = 2
+script = ExtResource("res://scripts/combat/hitbox.gd")
+damage = 10.0
+knockback_force = 300.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hitbox")

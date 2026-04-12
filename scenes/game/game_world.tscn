@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://b_gameworld001"]
+
+[ext_resource type="PackedScene" uid="uid://b_player001" path="res://scenes/characters/player.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(640, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_side"]
+size = Vector2(16, 360)
+
+[node name="GameWorld" type="Node2D"]
+
+[node name="Floor" type="ColorRect" parent="."]
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, -188)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 188)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-328, 0)
+shape = SubResource("RectangleShape2D_wall_side")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(328, 0)
+shape = SubResource("RectangleShape2D_wall_side")
+
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(0, 0)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 10
+script = ExtResource("2")
+
+[node name="HealthBar" type="ProgressBar" parent="HUD"]
+offset_left = 10.0
+offset_top = 338.0
+offset_right = 150.0
+offset_bottom = 350.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="DashLabel" type="Label" parent="HUD"]
+offset_left = 10.0
+offset_top = 318.0
+offset_right = 100.0
+offset_bottom = 335.0
+text = "Dash: 2/2"
