@@ -49,7 +49,7 @@ func emit_event(event_name: String, data: Dictionary = {}) -> void:
 
 	# 通知一次性订阅者并清除
 	if _once_subscribers.has(event_name):
-		var callbacks := _once_subscribers[event_name].duplicate()
+		var callbacks: Array = _once_subscribers[event_name].duplicate()
 		_once_subscribers[event_name].clear()
 		for callback in callbacks:
 			if callback.is_valid():

@@ -1,7 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b_mainmenu001"]
+[gd_scene load_steps=1 format=3 uid="uid://b_mainmenu001"]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1"]
-[ext_resource type="Theme" uid="uid://c_pixel_theme" path="" id="2"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
