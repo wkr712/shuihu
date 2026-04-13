@@ -51,10 +51,11 @@ func advance_room() -> void:
 
 	# 限制最大楼层
 	if current_floor > GameConstants.MAX_FLOOR:
-		if GameManager.current_run:
-			GameManager.end_run(true)
+		_sync_run_data()
+		GameManager.end_run(true)
 		return
 
+	_sync_run_data()
 	_spawn_room_enemies()
 	room_started.emit(current_room, current_floor)
 
@@ -63,6 +64,13 @@ func advance_room() -> void:
 		"room": current_room,
 		"floor": current_floor,
 	})
+
+
+## 同步数据到 GameManager.current_run
+func _sync_run_data() -> void:
+	if GameManager.current_run:
+		GameManager.current_run.current_floor = current_floor
+		GameManager.current_run.current_room = current_room
 
 
 ## 生成当前房间的敌人
@@ -91,7 +99,12 @@ func _get_enemy_count_for_room(room: int) -> int:
 
 
 ## 获取房间敌人场景
-func _get_enemy_scene_for_room(_room: int) -> PackedScene:
+func _get_enemy_scene_for_room(room: int) -> PackedScene:
+	# 房间 4+ 有概率出现 Guard
+	if room >= 4 and randi() % 3 == 0:
+		var guard := _enemy_scenes.get(GameConstants.EnemyType.GUARD) as PackedScene
+		if guard:
+			return guard
 	return _enemy_scenes.get(GameConstants.EnemyType.BANDIT)
 
 
@@ -135,3 +148,6 @@ func _load_enemy_scenes() -> void:
 	var bandit_scene: PackedScene = load("res://scenes/enemies/bandit.tscn") as PackedScene
 	if bandit_scene:
 		_enemy_scenes[GameConstants.EnemyType.BANDIT] = bandit_scene
+	var guard_scene: PackedScene = load("res://scenes/enemies/guard.tscn") as PackedScene
+	if guard_scene:
+		_enemy_scenes[GameConstants.EnemyType.GUARD] = guard_scene

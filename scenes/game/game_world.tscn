@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b_gameworld001"]
+[gd_scene load_steps=7 format=3 uid="uid://b_gameworld001"]
 
 [ext_resource type="Script" path="res://scripts/game/game_world.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://b_player001" path="res://scenes/characters/player.tscn" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b_basicroom001" path="res://scenes/levels/room_templates/basic_room.tscn" id="4"]
 [ext_resource type="Script" path="res://scripts/roguelike/upgrade_manager.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://b_upgradeselect001" path="res://scenes/ui/upgrade_select.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://b_pausemenu001" path="res://scenes/ui/pause_menu.tscn" id="7"]
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1")
@@ -19,6 +20,8 @@ position = Vector2(0, 60)
 script = ExtResource("5")
 
 [node name="UpgradeSelect" parent="." instance=ExtResource("6")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("7")]
 
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 10

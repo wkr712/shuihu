@@ -31,10 +31,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	# 暂停检测
-	if Input.is_action_just_pressed("pause"):
-		GameManager.toggle_pause()
-		return
+	pass
 
 
 ## 攻击开始（由攻击状态调用）
@@ -105,7 +102,26 @@ func _on_health_changed(current: float, max_val: float) -> void:
 
 func _on_died() -> void:
 	EventBus.emit_event("player_died", {"position": global_position})
-	GameManager.end_run(false)
+	# 禁用输入和碰撞
+	set_physics_process(false)
+	if hurtbox:
+		hurtbox.monitorable = false
+	# 死亡闪烁效果
+	_start_death_flash()
+	# 延迟触发回合结束
+	get_tree().create_timer(1.0).timeout.connect(func() -> void:
+		GameManager.end_run(false)
+	)
+
+
+func _start_death_flash() -> void:
+	_stop_flash()
+	var tween := create_tween()
+	tween.tween_property(sprite, "color:a", 0.0, 0.15)
+	tween.tween_property(sprite, "color:a", 1.0, 0.15)
+	tween.tween_property(sprite, "color:a", 0.0, 0.15)
+	tween.tween_property(sprite, "color:a", 1.0, 0.15)
+	tween.tween_property(sprite, "color:a", 0.0, 0.2)
 
 
 func _on_game_paused() -> void:
