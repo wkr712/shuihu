@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="HeroDataResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/hero_data_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+hero_id = "lin_chong"
+display_name = "林冲"
+sprite_color = Color(0.2, 0.9, 0.3, 1)
+max_health = 80.0
+move_speed = 240.0
+attack_power = 8.0
+max_dash_charges = 3
+weapon_type = 1
+description = "豹子头·林冲 - 速攻型，身法灵动"

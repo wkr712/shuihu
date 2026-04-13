@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=3 uid="uid://b_runsummary001"]
+
+[ext_resource type="Script" path="res://scripts/ui/run_summary.gd" id="1"]
+
+[node name="RunSummary" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06, 0.06, 0.1, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ResultLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "战败"
+horizontal_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 10)
+
+[node name="HeroLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "英雄: -"
+horizontal_alignment = 1
+
+[node name="FloorLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "到达楼层: 0"
+horizontal_alignment = 1
+
+[node name="RoomsLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "清除房间: 0"
+horizontal_alignment = 1
+
+[node name="KillsLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "击杀敌人: 0"
+horizontal_alignment = 1
+
+[node name="UpgradesLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "获得强化: 0"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "用时: 00:00"
+horizontal_alignment = 1
+
+[node name="Margin2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 20)
+
+[node name="ReturnButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "返回主菜单"

@@ -14,9 +14,8 @@ static func apply_hit(hitbox: Area2D, hurtbox: Area2D) -> void:
 		return
 
 	# 获取 Hitbox 脚本的伤害参数
-	var hitbox_script: Node = hitbox
-	var damage: float = hitbox_script.damage if hitbox_script.has_method("get") else GameConstants.DEFAULT_ATTACK
-	var knockback_force: float = hitbox_script.knockback_force if hitbox_script.has_method("get") else 300.0
+	var damage: float = hitbox.damage if "damage" in hitbox else GameConstants.DEFAULT_ATTACK
+	var knockback_force: float = hitbox.knockback_force if "knockback_force" in hitbox else 300.0
 
 	# 计算击退方向
 	var knockback_dir: Vector2 = Vector2.ZERO

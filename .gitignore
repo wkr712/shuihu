@@ -31,3 +31,9 @@ bin/
 
 # Encryption
 *.encryption.key
+
+# Godot UID cache files
+*.gd.uid
+
+# Screenshots
+screenshot*.png

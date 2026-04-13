@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func _on_start_pressed() -> void:
-	SceneManager.change_scene("res://scenes/game/game_world.tscn")
+	SceneManager.change_scene("res://scenes/ui/hero_select.tscn")
 
 
 func _on_quit_pressed() -> void:

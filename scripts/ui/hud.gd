@@ -6,11 +6,13 @@ extends CanvasLayer
 ## 节点引用
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var dash_label: Label = $DashLabel
+@onready var floor_label: Label = $FloorLabel
 
 
 func _ready() -> void:
 	EventBus.subscribe("player_health_changed", _on_player_health_changed)
 	EventBus.subscribe("player_damaged", _on_player_damaged)
+	EventBus.subscribe("room_changed", _on_room_changed)
 
 
 func _on_player_health_changed(data: Dictionary) -> void:
@@ -21,8 +23,13 @@ func _on_player_health_changed(data: Dictionary) -> void:
 
 
 func _on_player_damaged(_data: Dictionary) -> void:
-	# 更新冲刺次数显示（从玩家获取）
 	_update_dash_display()
+
+
+func _on_room_changed(data: Dictionary) -> void:
+	var room: int = data.get("room", 1)
+	var floor: int = data.get("floor", 1)
+	floor_label.text = "Floor: %d  Room: %d" % [floor, room]
 
 
 func _process(_delta: float) -> void:

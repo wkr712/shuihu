@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeDataResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_data_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = "speed_up"
+display_name = "速度提升"
+description = "移动速度 +15"
+icon_color = Color(0.3, 0.7, 0.9, 1)
+rarity = 0
+stat_modifiers = {
+"move_speed": 15.0
+}

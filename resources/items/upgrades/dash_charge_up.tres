@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeDataResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_data_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = "dash_charge_up"
+display_name = "冲刺强化"
+description = "冲刺次数 +1"
+icon_color = Color(0.5, 0.3, 0.9, 1)
+rarity = 1
+stat_modifiers = {
+"max_dash_charges": 1.0
+}

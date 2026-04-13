@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://b_upgradeselect001"]
+
+[ext_resource type="Script" path="res://scripts/ui/upgrade_select.gd" id="1"]
+
+[node name="UpgradeSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+script = ExtResource("1")
+
+[node name="DimBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DimBackground"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -100.0
+offset_right = 250.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="DimBackground/VBoxContainer"]
+layout_mode = 2
+text = "选择强化"
+horizontal_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="DimBackground/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 15)
+
+[node name="ChoiceContainer" type="HBoxContainer" parent="DimBackground/VBoxContainer"]
+layout_mode = 2
+alignment = 1
