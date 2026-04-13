@@ -37,3 +37,15 @@ bin/
 
 # Screenshots
 screenshot*.png
+*.png.bak
+snap_*.png
+s[0-9]*.png
+f[0-9]*.png
+g[0-9]*.png
+h[0-9]*.png
+z[0-9]*.png
+pic_*.png
+step*.png
+
+# Claude local settings
+.claude/settings.local.json
