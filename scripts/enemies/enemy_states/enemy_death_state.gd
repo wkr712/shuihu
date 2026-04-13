@@ -1,15 +1,24 @@
-# scripts/enemies/enemy_states/enemy_death_state.gd
-# 敌人死亡状态：闪烁动画后移除节点。
+# scripts/enemies/enemy_death_state.gd
+# 敌人死亡状态：闪烁动画后移除节点，概率掉落治疗球。
 
 extends "res://scripts/enemies/enemy_state_base.gd"
 
 
 ## 死亡动画持续时间
 @export var death_duration: float = 0.5
+## 掉落治疗球概率 (0.0 ~ 1.0)
+@export var drop_chance: float = 0.3
 
+## 预加载治疗球场景
+var _health_orb_scene: PackedScene = null
 
 var _timer: float = 0.0
 var _flash_tween: Tween = null
+
+
+func _init() -> void:
+	if ResourceLoader.exists("res://scenes/combat/health_orb.tscn"):
+		_health_orb_scene = load("res://scenes/combat/health_orb.tscn")
 
 
 func enter() -> void:
@@ -34,10 +43,25 @@ func physics_update(delta: float) -> void:
 	_timer -= delta
 
 	if _timer <= 0.0:
+		# 掉落治疗球
+		_try_drop_health_orb()
+
 		# 清理并移除
 		if _flash_tween:
 			_flash_tween.kill()
 		host.queue_free()
+
+
+## 概率掉落治疗球
+func _try_drop_health_orb() -> void:
+	if not _health_orb_scene:
+		return
+	if randf() > drop_chance:
+		return
+
+	var orb: Area2D = _health_orb_scene.instantiate()
+	orb.global_position = host.global_position
+	host.get_parent().add_child(orb)
 
 
 func exit() -> void:

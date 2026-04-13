@@ -8,6 +8,7 @@ extends Node
 signal room_started(room_number: int, floor_number: int)
 signal room_cleared(room_number: int, floor_number: int)
 signal floor_cleared(floor_number: int)
+signal room_changed(room: int, floor: int)
 
 
 ## 配置
@@ -23,6 +24,8 @@ var enemies_alive: int = 0
 var _enemy_scenes: Dictionary = {}
 ## 生成点引用
 var _spawn_points: Array[Marker2D] = []
+## 当前房间节点引用
+var _room_node: Node2D = null
 
 
 func _ready() -> void:
@@ -35,7 +38,6 @@ func start_run() -> void:
 	current_floor = 1
 	current_room = 0
 	enemies_alive = 0
-	_collect_spawn_points()
 	advance_room()
 
 
@@ -56,6 +58,11 @@ func advance_room() -> void:
 		return
 
 	_sync_run_data()
+	room_changed.emit(current_room, current_floor)
+
+
+## 开始房间战斗（由 game_world 在房间模板加载后调用）
+func start_room_battle() -> void:
 	_spawn_room_enemies()
 	room_started.emit(current_room, current_floor)
 
@@ -64,6 +71,20 @@ func advance_room() -> void:
 		"room": current_room,
 		"floor": current_floor,
 	})
+
+
+## 收集场景中的生成点（由 game_world 调用）
+func collect_spawn_points(room: Node2D) -> void:
+	_room_node = room
+	_spawn_points.clear()
+	if not room:
+		return
+
+	var sp_node: Node = room.get_node_or_null("SpawnPoints")
+	if sp_node:
+		for child in sp_node.get_children():
+			if child is Marker2D:
+				_spawn_points.append(child)
 
 
 ## 同步数据到 GameManager.current_run
@@ -86,10 +107,9 @@ func _spawn_room_enemies() -> void:
 		var enemy: CharacterBody2D = scene.instantiate()
 		enemy.global_position = pos
 
-		# 添加到场景
-		var room: Node = get_parent()
-		if room:
-			room.add_child(enemy)
+		# 添加到房间节点
+		if _room_node:
+			_room_node.add_child(enemy)
 			enemies_alive += 1
 
 
@@ -127,20 +147,6 @@ func _on_enemy_died(_data: Dictionary) -> void:
 		if GameManager.current_run:
 			GameManager.current_run.rooms_cleared += 1
 		room_cleared.emit(current_room, current_floor)
-
-
-## 收集场景中的生成点
-func _collect_spawn_points() -> void:
-	_spawn_points.clear()
-	var room: Node = get_parent()
-	if not room:
-		return
-
-	var sp_node: Node = room.get_node_or_null("SpawnPoints")
-	if sp_node:
-		for child in sp_node.get_children():
-			if child is Marker2D:
-				_spawn_points.append(child)
 
 
 ## 加载敌人场景

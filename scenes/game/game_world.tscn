@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/game/game_world.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://b_player001" path="res://scenes/characters/player.tscn" id="2"]
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="3"]
-[ext_resource type="PackedScene" uid="uid://b_basicroom001" path="res://scenes/levels/room_templates/basic_room.tscn" id="4"]
+[ext_resource type="Script" path="res://scripts/roguelike/run_tracker.gd" id="4"]
 [ext_resource type="Script" path="res://scripts/roguelike/upgrade_manager.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://b_upgradeselect001" path="res://scenes/ui/upgrade_select.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://b_pausemenu001" path="res://scenes/ui/pause_menu.tscn" id="7"]
@@ -11,10 +11,11 @@
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1")
 
-[node name="BasicRoom" parent="." instance=ExtResource("4")]
-
 [node name="Player" parent="." instance=ExtResource("2")]
 position = Vector2(0, 60)
+
+[node name="RunTracker" type="Node" parent="."]
+script = ExtResource("4")
 
 [node name="UpgradeManager" type="Node" parent="."]
 script = ExtResource("5")
@@ -49,3 +50,10 @@ offset_top = 10.0
 offset_right = 630.0
 offset_bottom = 27.0
 text = "Floor: 1  Room: 1"
+
+[node name="EnemyLabel" type="Label" parent="HUD"]
+offset_left = 500.0
+offset_top = 28.0
+offset_right = 630.0
+offset_bottom = 45.0
+text = "Enemies: 0"

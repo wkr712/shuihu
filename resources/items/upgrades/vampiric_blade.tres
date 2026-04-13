@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeDataResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_data_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = "vampiric_blade"
+display_name = "吸血之剑"
+description = "攻击力 +8，最大生命 -15"
+icon_color = Color(0.4, 0.0, 0.6, 1)
+rarity = 2
+stat_modifiers = {
+"attack_power": 8.0,
+"max_health": -15.0
+}

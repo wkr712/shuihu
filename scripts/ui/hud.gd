@@ -3,10 +3,12 @@
 
 extends CanvasLayer
 
+
 ## 节点引用
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var dash_label: Label = $DashLabel
 @onready var floor_label: Label = $FloorLabel
+@onready var enemy_label: Label = $EnemyLabel
 
 
 func _ready() -> void:
@@ -34,6 +36,7 @@ func _on_room_changed(data: Dictionary) -> void:
 
 func _process(_delta: float) -> void:
 	_update_dash_display()
+	_update_enemy_count()
 
 
 func _update_dash_display() -> void:
@@ -41,3 +44,8 @@ func _update_dash_display() -> void:
 	if player and player.has_node("Stats"):
 		var stats: Node = player.get_node("Stats")
 		dash_label.text = "Dash: %d/%d" % [stats.dash_charges, stats.max_dash_charges]
+
+
+func _update_enemy_count() -> void:
+	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemies")
+	enemy_label.text = "Enemies: %d" % enemies.size()

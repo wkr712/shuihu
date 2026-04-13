@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeDataResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_data_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = "armor_up"
+display_name = "铁壁防御"
+description = "最大生命 +30，速度 -10"
+icon_color = Color(0.5, 0.5, 0.6, 1)
+rarity = 1
+stat_modifiers = {
+"max_health": 30.0,
+"move_speed": -10.0
+}

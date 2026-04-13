@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeDataResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_data_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = "crit_chance"
+display_name = "暴击之心"
+description = "攻击力 +2，暴击率提升"
+icon_color = Color(1.0, 0.85, 0.0, 1)
+rarity = 1
+stat_modifiers = {
+"attack_power": 2.0,
+"crit_chance": 15.0
+}

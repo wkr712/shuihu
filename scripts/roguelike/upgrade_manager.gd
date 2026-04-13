@@ -12,6 +12,10 @@ const UPGRADE_PATHS: Array[String] = [
 	"res://resources/items/upgrades/heal_small.tres",
 	"res://resources/items/upgrades/dash_charge_up.tres",
 	"res://resources/items/upgrades/attack_big.tres",
+	"res://resources/items/upgrades/lifesteal.tres",
+	"res://resources/items/upgrades/crit_chance.tres",
+	"res://resources/items/upgrades/armor_up.tres",
+	"res://resources/items/upgrades/vampiric_blade.tres",
 ]
 
 
