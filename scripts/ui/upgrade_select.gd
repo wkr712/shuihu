@@ -9,6 +9,7 @@ var _on_selected: Callable
 
 
 func _ready() -> void:
+	GameTheme.apply_to(self)
 	visible = false
 
 

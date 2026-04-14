@@ -5,7 +5,7 @@ extends "res://scripts/characters/state_machine/player_states/player_state_base.
 
 
 func enter() -> void:
-	pass
+	host.play_animation("walk")
 
 
 func physics_update(_delta: float) -> void:

@@ -19,11 +19,14 @@ var _is_invincible: bool = false
 @onready var stats: Node = $Stats
 @onready var hitbox: Area2D = $HitboxPivot/Hitbox
 @onready var hurtbox: Area2D = $Hurtbox
-@onready var sprite: ColorRect = $Sprite
+@onready var sprite: AnimatedSprite2D = $Sprite
 
 
 func _ready() -> void:
 	add_to_group("enemies")
+
+	# 生成像素精灵
+	_setup_sprite()
 
 	# 设置 hitbox 的攻击者引用
 	hitbox.attacker = self
@@ -32,14 +35,34 @@ func _ready() -> void:
 	stats.died.connect(_on_died)
 
 
+## 根据敌人类型生成精灵
+func _setup_sprite() -> void:
+	var char_id: String = "bandit"
+	if enemy_type == GameConstants.EnemyType.GUARD:
+		char_id = "guard"
+
+	var frames: SpriteFrames = PixelArtGenerator.generate_sprite_frames(char_id)
+	if frames:
+		sprite.sprite_frames = frames
+		sprite.play("idle")
+
+
 func _physics_process(_delta: float) -> void:
 	# 更新面朝方向和 hitbox 朝向
 	if velocity.x > 1.0:
 		face_direction = Vector2.RIGHT
 		$HitboxPivot.scale.x = 1.0
+		sprite.flip_h = false
 	elif velocity.x < -1.0:
 		face_direction = Vector2.LEFT
 		$HitboxPivot.scale.x = -1.0
+		sprite.flip_h = true
+
+
+## 播放动画（由状态机调用）
+func play_animation(anim_name: String) -> void:
+	if sprite and sprite.sprite_frames and sprite.sprite_frames.has_animation(anim_name):
+		sprite.play(anim_name)
 
 
 ## 攻击开始（由攻击状态调用）

@@ -13,6 +13,7 @@ func enter() -> void:
 	_timer = attack_duration
 	# 通知攻击开始（触发 Hitbox 启用）
 	host.attack_started()
+	host.play_animation("attack")
 	# 攻击时减速但不完全停止
 	host.velocity *= 0.3
 

@@ -6,6 +6,7 @@ extends "res://scripts/characters/state_machine/player_states/player_state_base.
 
 func enter() -> void:
 	host.velocity = Vector2.ZERO
+	host.play_animation("idle")
 
 
 func physics_update(_delta: float) -> void:

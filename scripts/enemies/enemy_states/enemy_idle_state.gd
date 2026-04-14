@@ -21,6 +21,7 @@ var _wander_direction: Vector2 = Vector2.ZERO
 func enter() -> void:
 	_wander_timer = 0.0
 	_pick_new_wander()
+	host.play_animation("idle")
 
 
 func physics_update(delta: float) -> void:

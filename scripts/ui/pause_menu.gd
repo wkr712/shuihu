@@ -12,6 +12,7 @@ func _ready() -> void:
 	# 连接按钮
 	$VBoxContainer/ResumeButton.pressed.connect(_on_resume_pressed)
 	$VBoxContainer/QuitButton.pressed.connect(_on_quit_pressed)
+	GameTheme.apply_to($VBoxContainer)
 
 	# 监听暂停信号
 	GameManager.game_paused.connect(_on_pause)

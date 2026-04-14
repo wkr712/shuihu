@@ -12,6 +12,7 @@ var _dash_direction: Vector2 = Vector2.RIGHT
 
 func enter() -> void:
 	_timer = dash_duration
+	host.play_animation("idle")
 
 	# 冲刺方向：有输入则跟随输入，否则跟随面朝方向
 	var input_dir := _get_movement_input()

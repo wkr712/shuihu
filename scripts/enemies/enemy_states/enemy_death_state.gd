@@ -32,11 +32,12 @@ func enter() -> void:
 	host.set_collision_mask_value(1, false)
 	host.set_collision_mask_value(3, false)
 
-	# 闪烁效果
+	# 播放 hurt 动画 + 闪烁效果
+	host.play_animation("hurt")
 	if host.sprite:
 		_flash_tween = host.create_tween().set_loops()
-		_flash_tween.tween_property(host.sprite, "color:a", 0.2, 0.08)
-		_flash_tween.tween_property(host.sprite, "color:a", 0.8, 0.08)
+		_flash_tween.tween_property(host.sprite, "modulate:a", 0.2, 0.08)
+		_flash_tween.tween_property(host.sprite, "modulate:a", 0.8, 0.08)
 
 
 func physics_update(delta: float) -> void:

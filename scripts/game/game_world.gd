@@ -17,6 +17,11 @@ var _current_upgrade_choices: Array[UpgradeDataResource] = []
 ## 当前房间实例
 var _current_room: Node2D = null
 
+## 过渡遮罩
+var _transition_rect: ColorRect = null
+## 是否正在过渡
+var _is_transitioning: bool = false
+
 ## 节点引用
 @onready var player: CharacterBody2D = $Player
 @onready var hud: CanvasLayer = $HUD
@@ -26,6 +31,9 @@ var _current_room: Node2D = null
 
 
 func _ready() -> void:
+	# 创建过渡遮罩
+	_create_transition_overlay()
+
 	# 应用英雄数据
 	_apply_hero_data()
 
@@ -40,10 +48,25 @@ func _ready() -> void:
 	run_tracker.start_run()
 
 
-## 房间变更回调 — 切换房间模板并开始战斗
+## 房间变更回调 — 带淡入淡出过渡效果
 func _on_room_changed(room: int, floor: int) -> void:
-	_spawn_room(-1)
-	run_tracker.start_room_battle()
+	if _is_transitioning:
+		return
+	_is_transitioning = true
+
+	# 淡出
+	var tween := create_tween()
+	tween.tween_property(_transition_rect, "color:a", 1.0, 0.2)
+	tween.tween_callback(func() -> void:
+		_spawn_room(-1)
+		run_tracker.start_room_battle()
+		# 淡入
+		var tween2 := create_tween()
+		tween2.tween_property(_transition_rect, "color:a", 0.0, 0.3)
+		tween2.tween_callback(func() -> void:
+			_is_transitioning = false
+		)
+	)
 
 
 ## 生成随机房间
@@ -93,9 +116,6 @@ func _apply_hero_data() -> void:
 	stats.attack_power = hero_data.attack_power
 	stats.max_dash_charges = hero_data.max_dash_charges
 
-	if player.has_node("Sprite"):
-		player.get_node("Sprite").color = hero_data.sprite_color
-
 	if player.has_node("HitboxPivot/Hitbox"):
 		player.get_node("HitboxPivot/Hitbox").damage = hero_data.attack_power
 
@@ -130,3 +150,16 @@ func _on_upgrade_chosen(index: int) -> void:
 ## 回合结束回调
 func _on_run_ended(victory: bool) -> void:
 	SceneManager.change_scene("res://scenes/ui/run_summary.tscn")
+
+
+## 创建全屏过渡遮罩
+func _create_transition_overlay() -> void:
+	_transition_rect = ColorRect.new()
+	_transition_rect.color = Color(0, 0, 0, 0)
+	_transition_rect.z_index = 100
+	# 全屏覆盖 (640x360 viewport)
+	_transition_rect.offset_left = -320.0
+	_transition_rect.offset_top = -180.0
+	_transition_rect.offset_right = 320.0
+	_transition_rect.offset_bottom = 180.0
+	add_child(_transition_rect)

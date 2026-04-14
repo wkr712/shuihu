@@ -27,6 +27,7 @@ var _selected_index: int = -1
 
 
 func _ready() -> void:
+	GameTheme.apply_to(self)
 	_load_hero_data()
 	_create_hero_cards()
 	confirm_button.disabled = true

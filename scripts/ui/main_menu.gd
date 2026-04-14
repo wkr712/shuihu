@@ -5,6 +5,7 @@ extends Control
 
 
 func _ready() -> void:
+	GameTheme.apply_to(self)
 	$VBoxContainer/StartButton.pressed.connect(_on_start_pressed)
 	$VBoxContainer/QuitButton.pressed.connect(_on_quit_pressed)
 

@@ -19,6 +19,7 @@ func enter() -> void:
 	_timer = attack_duration
 	_is_attacking = true
 	host.attack_started()
+	host.play_animation("attack")
 	host.velocity = Vector2.ZERO
 
 

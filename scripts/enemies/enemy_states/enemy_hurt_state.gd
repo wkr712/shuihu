@@ -13,6 +13,7 @@ var _timer: float = 0.0
 
 func enter() -> void:
 	_timer = hurt_duration
+	host.play_animation("hurt")
 
 
 func physics_update(delta: float) -> void:

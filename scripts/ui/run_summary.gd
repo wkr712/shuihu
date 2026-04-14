@@ -16,6 +16,7 @@ extends Control
 
 
 func _ready() -> void:
+	GameTheme.apply_to(self)
 	return_button.pressed.connect(_on_return_pressed)
 	_display_summary()
 

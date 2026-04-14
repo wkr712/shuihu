@@ -15,7 +15,7 @@ extends "res://scripts/enemies/enemy_state_base.gd"
 
 
 func enter() -> void:
-	pass
+	host.play_animation("walk")
 
 
 func physics_update(_delta: float) -> void:

@@ -13,6 +13,7 @@ func enter() -> void:
 	_timer = hurt_duration
 	# 受击时清除速度
 	host.velocity = Vector2.ZERO
+	host.play_animation("hurt")
 
 
 func physics_update(delta: float) -> void:
