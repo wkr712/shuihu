@@ -61,9 +61,8 @@ func _on_body_entered(body: Node2D) -> void:
 		var label: Label = scene.instantiate()
 		label.damage_value = heal_amount
 		label.is_crit = false
+		label.custom_color = Color(0.3, 0.9, 0.4)
 		label.global_position = body.global_position + Vector2(0, -20)
-		# 改为绿色
-		label.add_theme_color_override("font_color", Color(0.3, 0.9, 0.4))
 		body.get_parent().add_child(label)
 
 	queue_free()

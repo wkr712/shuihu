@@ -13,11 +13,14 @@ extends CanvasLayer
 
 func _ready() -> void:
 	# 应用像素字体到 HUD 控件
-	var font := FontFile.new()
-	font.font_path = "res://assets/fonts/DotGothic16-Regular.ttf"
+	var font_path: String = "res://assets/fonts/DotGothic16-Regular.ttf"
+	var font: FontFile = null
+	if ResourceLoader.exists(font_path):
+		font = load(font_path) as FontFile
 	for child: Control in get_children():
 		if child is Label or child is ProgressBar:
-			child.add_theme_font_override("font", font)
+			if font:
+				child.add_theme_font_override("font", font)
 			child.add_theme_font_size_override("font_size", 10)
 
 	EventBus.subscribe("player_health_changed", _on_player_health_changed)

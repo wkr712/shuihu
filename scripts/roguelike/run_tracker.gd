@@ -147,6 +147,7 @@ func _on_enemy_died(_data: Dictionary) -> void:
 		if GameManager.current_run:
 			GameManager.current_run.rooms_cleared += 1
 		room_cleared.emit(current_room, current_floor)
+		EventBus.emit_event("room_cleared", {"room": current_room, "floor": current_floor})
 
 
 ## 加载敌人场景

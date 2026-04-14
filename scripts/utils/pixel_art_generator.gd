@@ -173,7 +173,6 @@ static func generate_texture(pixel_data: PackedStringArray, width: int = 16, hei
 			else:
 				img.set_pixel(x, y, Color.TRANSPARENT)
 	var tex := ImageTexture.create_from_image(img)
-	tex.set_flags(Texture2D.FLAG_FILTER_NEAREST)
 	return tex
 
 
@@ -296,34 +295,37 @@ static func _get_base(character_id: String) -> PackedStringArray:
 ## 生成 walk 帧（修改腿部行）
 ## step 0: 左前右后, 1: 并拢, 2: 右前左后, 3: 并拢
 static func _make_walk_frame(base: PackedStringArray, step: int) -> PackedStringArray:
+	# 从 base 精灵获取腿部主色调字符
+	var main_ch: String = _get_main_color(base)
+
+	# 用角色颜色动态构建腿部行
 	var leg_rows: PackedStringArray
+	var lc: String = main_ch + main_ch  # 两个主色字符
 	match step:
 		0:
 			leg_rows = PackedStringArray([
-				"....BB..BB.....",   # 腿
-				"...DD....DD....",   # 靴子 左前右后
+				"...." + lc + ".." + lc + ".....",
+				"...DD....DD....",
 			])
 		1:
 			leg_rows = PackedStringArray([
-				"....BB.BB......",   # 腿并拢
-				"...DD...DD.....",   # 靴子并拢
+				"...." + lc + "." + lc + "......",
+				"...DD...DD.....",
 			])
 		2:
 			leg_rows = PackedStringArray([
-				"....BB..BB.....",   # 腿
-				"....DD...DD....",   # 靴子 右前左后
-			]
-			)
+				"...." + lc + ".." + lc + ".....",
+				"....DD...DD....",
+			])
 		_:
 			leg_rows = PackedStringArray([
-				"....BB.BB......",
+				"...." + lc + "." + lc + "......",
 				"...DD...DD.....",
 			])
 
 	# 替换腿部行（倒数第 5, 4 行，即 row 12, 13）
-	# 通用处理：从 base 末尾找到靴子行并替换
 	var result: PackedStringArray = base.duplicate()
-	var start_replace: int = result.size() - 5  # 腿部从倒数第5行开始
+	var start_replace: int = result.size() - 5
 	if start_replace < 0:
 		start_replace = 0
 	for i: int in range(leg_rows.size()):

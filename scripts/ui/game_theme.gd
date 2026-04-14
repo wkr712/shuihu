@@ -112,9 +112,10 @@ static func _create_theme() -> Theme:
 
 ## 加载像素字体
 static func _load_font() -> FontFile:
-	var font := FontFile.new()
-	font.font_path = FONT_PATH
-	return font
+	if ResourceLoader.exists(FONT_PATH):
+		return load(FONT_PATH) as FontFile
+	# 回退：空字体（使用引擎默认）
+	return FontFile.new()
 
 
 ## 创建大号标题字体（用于标题文字）
